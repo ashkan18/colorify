@@ -6,6 +6,7 @@ defmodule ColorifyWeb.DashboardController do
       get_session(conn, :access_token)
       |> Spotify.client()
       |> Spotify.user_playlists("ashkan18")
+
     render(conn, "index.html", playlists: response.body["items"])
   end
 end

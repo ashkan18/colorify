@@ -8,14 +8,14 @@ defmodule SpotifyAuth do
 
   def client do
     Application.get_env(:colorify, :oauth)
-      |> Keyword.merge(config())
-      |> OAuth2.Client.new()
-      |> OAuth2.Client.put_serializer("application/json", Jason)
+    |> Keyword.merge(config())
+    |> OAuth2.Client.new()
+    |> OAuth2.Client.put_serializer("application/json", Jason)
   end
 
   defp config do
     [
-      strategy: SpotifyAuth, #default,
+      strategy: SpotifyAuth,
       scope: "playlist-read-private,user-library-read",
       site: "https://accounts.spotify.com",
       authorize_url: "/authorize",

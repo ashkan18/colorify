@@ -20,7 +20,7 @@ defmodule ColorifyWeb.Router do
     get "/callback", AuthController, :callback
     delete "/logout", AuthController, :delete
 
-    #pipe_through :ensure_admin_authed_access
+    # pipe_through :ensure_admin_authed_access
     resources "/dashboard", DashboardController
     live "/playlists/:id", PlaylistLive
   end

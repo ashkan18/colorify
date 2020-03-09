@@ -6,7 +6,7 @@ defmodule ColorifyWeb.AuthController do
   based on the chosen strategy.
   """
   def index(conn, _) do
-    redirect conn, external: SpotifyAuth.authorize_url!()
+    redirect(conn, external: SpotifyAuth.authorize_url!())
   end
 
   def delete(conn, _params) do
@@ -24,11 +24,12 @@ defmodule ColorifyWeb.AuthController do
   """
   def callback(conn, %{"code" => code}) do
     token_client = SpotifyAuth.get_token!(code: code)
-    #user = get_user!(provider, client)
+
+    # user = get_user!(provider, client)
 
     conn
-    #|> put_session(:current_user, user)
+    # |> put_session(:current_user, user)
     |> put_session(:access_token, token_client.token.access_token)
-    |> redirect(to: "/")
+    |> redirect(to: "/dashboard")
   end
 end

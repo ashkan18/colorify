@@ -9,7 +9,7 @@ defmodule Colorify.Application do
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
-      #Colorify.Repo,
+      # Colorify.Repo,
       # Start the endpoint when the application starts
       ColorifyWeb.Endpoint
       # Starts a worker by calling: Colorify.Worker.start_link(arg)
