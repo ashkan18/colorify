@@ -45,7 +45,8 @@ defmodule Colorify.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:oauth2, "~> 2.0"},
       {:tesla, "~> 1.3.0"},
-      {:phoenix_live_view, "~> 0.8.1"}
+      {:phoenix_live_view, "~> 0.8.1"},
+      {:mogrify, "~> 0.7.3"}
     ]
   end
 
