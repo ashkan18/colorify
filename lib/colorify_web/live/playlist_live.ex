@@ -6,9 +6,9 @@ defmodule ColorifyWeb.PlaylistLive do
     <div class="main-live">
       <section class="main-stats">
         <%= if not Enum.empty?(@tracks) do %>
-          <h2>Here are tracks in this playlist:</h2>
+          <h2>Here are tracks in this playlist: (<%= @number_of_tracks %>/<%= @processed_tracks %>)</h2>
         <% end %>
-        <div style="display: flex;flex-direction: row; flex-wrap: wrap; justify-content: space-around; text-align: center;">
+        <div style="display: flex;flex-direction: row; flex-wrap: wrap; justify-content: space-between; text-align: center;">
           <%= for track <- @tracks do %>
             <%= if Enum.member?(@selected_tracks, track["track"]["id"]) do %>
               <div class="track selected"> <%= track["track"]["name"] %> </div>
@@ -17,7 +17,7 @@ defmodule ColorifyWeb.PlaylistLive do
             <% end %>
           <% end %>
         </div>
-        <div style="display: flex;flex-direction: row;flex-wrap: wrap; align-items: center; width: 1000px;justify-content: space-around;margin-top: 20px;">
+        <div style="display: flex;flex-direction: row;flex-wrap: wrap; align-items: center; width: 1000px;justify-content: space-between;margin-top: 20px;">
           <%= for {color, %{"count" => count}} <- @colors do %>
             <div phx-click="select_color" phx-value-color=<%= color %> style="border-radius: 50%;display: inline-block;background-color: <%= color %>; width: <%= (count / @max) * 200 %>px; height: <%= (count / @max) * 200 %>px"></div>
           <% end %>
@@ -39,7 +39,9 @@ defmodule ColorifyWeb.PlaylistLive do
        id: id,
        min: 0,
        max: 100,
-       selected_tracks: []
+       selected_tracks: [],
+       number_of_tracks: 0,
+       processed_tracks: 0
      )}
   end
 
@@ -59,7 +61,7 @@ defmodule ColorifyWeb.PlaylistLive do
           send(self(), {:process_image, track["track"]["id"], List.first(track["track"]["album"]["images"])["url"]})
         end)
 
-        {:noreply, assign(socket, tracks: tracks_response.body["tracks"]["items"])}
+        {:noreply, assign(socket, tracks: tracks_response.body["tracks"]["items"], number_of_tracks: length(tracks_response.body["tracks"]["items"]))}
 
       _ ->
         {:noreply, socket}
@@ -87,6 +89,6 @@ defmodule ColorifyWeb.PlaylistLive do
 
     {{_, min}, {_, max}} = Enum.min_max_by(updated_colors, fn {_k, v} -> v["count"] end)
 
-    {:noreply, assign(socket, colors: updated_colors, min: min["count"], max: max["count"])}
+    {:noreply, assign(socket, colors: updated_colors, min: min["count"], max: max["count"], processed_tracks: socket.assigns.processed_tracks + 1)}
   end
 end
