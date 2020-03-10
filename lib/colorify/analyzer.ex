@@ -1,6 +1,7 @@
 defmodule Colorify.Analyzer do
   def analyze(url, limit \\ 5)
   def analyze(nil, _limit), do: %{}
+
   def analyze(url, limit) do
     url
     |> temp_file_from_url()
@@ -11,6 +12,7 @@ defmodule Colorify.Analyzer do
   end
 
   defp temp_file_from_url(nil), do: nil
+
   defp temp_file_from_url(url) do
     temp_file_name = :crypto.hash(:md5, url) |> Base.encode16()
     Application.ensure_all_started(:inets)

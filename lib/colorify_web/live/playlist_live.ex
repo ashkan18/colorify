@@ -10,12 +10,16 @@ defmodule ColorifyWeb.PlaylistLive do
         <% end %>
         <div style="display: flex;flex-direction: row; flex-wrap: wrap; justify-content: space-around; text-align: center;">
           <%= for track <- @tracks do %>
-            <div class="serif-2 color-black60"> <%= track["track"]["name"] %> </div>
+            <%= if Enum.member?(@selected_tracks, track["track"]["id"]) do %>
+              <div class="track selected"> <%= track["track"]["name"] %> </div>
+            <% else %>
+              <div class="track"> <%= track["track"]["name"] %> </div>
+            <% end %>
           <% end %>
         </div>
         <div style="display: flex;flex-direction: row;flex-wrap: wrap; align-items: center; width: 1000px;justify-content: space-around;margin-top: 20px;">
           <%= for {color, %{"count" => count}} <- @colors do %>
-            <div style="border-radius: 50%;display: inline-block;background-color: <%= color %>; width: <%= (count / @max) * 200 %>px; height: <%= (count / @max) * 200 %>px"></div>
+            <div phx-click="select_color" phx-value-color=<%= color %> style="border-radius: 50%;display: inline-block;background-color: <%= color %>; width: <%= (count / @max) * 200 %>px; height: <%= (count / @max) * 200 %>px"></div>
           <% end %>
         </div>
       </section>
@@ -34,8 +38,15 @@ defmodule ColorifyWeb.PlaylistLive do
        colors: %{},
        id: id,
        min: 0,
-       max: 100
+       max: 100,
+       selected_tracks: []
      )}
+  end
+
+  def handle_event("select_color", %{"color" => selected_color}, socket) do
+    {:ok, selected_tracks } = socket.assigns.colors
+      |> Map.fetch(selected_color)
+    {:noreply, assign(socket, selected_tracks: selected_tracks["track_ids"])}
   end
 
   def handle_info({:initialize, token, id}, socket) do
@@ -73,6 +84,7 @@ defmodule ColorifyWeb.PlaylistLive do
 
         new_map
       end)
+
     {{_, min}, {_, max}} = Enum.min_max_by(updated_colors, fn {_k, v} -> v["count"] end)
 
     {:noreply, assign(socket, colors: updated_colors, min: min["count"], max: max["count"])}

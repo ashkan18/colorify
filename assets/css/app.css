@@ -2,3 +2,28 @@
 
 @import "./phoenix.css";
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";
+
+.track {
+  font-size: medium;
+}
+
+
+.selected {
+  font-weight: 600;
+  font-size: large;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+.album{
+  font-weight: 400;
+}
+
+.header{
+  font-weight: 300;
+  margin-top: 10px;
+  padding: 5px;
+}

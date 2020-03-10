@@ -1,12 +1,12 @@
 <section class="row">
   <article class="column">
-    <h2>Playlists</h2>
-    <div style="display: flex;flex-direction: row;flex-wrap: wrap; width: 800px;justify-content: space-around;">
+    <h2>Your Playlists</h2>
+    <div style="display: flex;flex-direction: row; flex-wrap: wrap; width: 800px; justify-content: space-between;">
       <%= for playlist <- @playlists do %>
         <a href= <%= "/playlists/" <> playlist["id"] %> >
-          <div style="display: flex;flex-direction: column;">
-            <img src= <%= List.first(playlist["images"])["url"] %> style="max-width: 100px"/>
-            <div><%= playlist["name"] %></div>
+          <div style="display: flex;flex-direction: column; margin: 15px;">
+            <img src= <%= List.first(playlist["images"])["url"] %> style="max-width: 150px"/>
+            <div class="album" style="text-align: center;"><%= playlist["name"] %></div>
           </div>
         </a>
       <% end %>
