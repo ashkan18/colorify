@@ -9,8 +9,8 @@ defmodule ColorifyWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
+  pipeline :authenticated do
+    plug ColorifyWeb.Plugs.EnsureAuth
   end
 
   scope "/", ColorifyWeb do
@@ -20,7 +20,7 @@ defmodule ColorifyWeb.Router do
     get "/callback", AuthController, :callback
     delete "/logout", AuthController, :delete
 
-    # pipe_through :ensure_admin_authed_access
+    pipe_through :authenticated
     resources "/dashboard", DashboardController
     live "/playlists/:id", PlaylistLive
   end
