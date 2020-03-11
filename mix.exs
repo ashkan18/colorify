@@ -5,7 +5,16 @@ defmodule Colorify.MixProject do
     [
       app: :colorify,
       version: "0.1.0",
-      elixir: "~> 1.5",
+      elixir: "~> 1.10.2",
+      releases: [
+        colorify: [
+          include_erts: true,
+          include_executables_for: [:unix],
+          applications: [
+            runtime_tools: :permanent
+          ]
+        ]
+      ],
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,

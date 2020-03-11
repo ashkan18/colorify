@@ -30,6 +30,8 @@ config :colorify, ColorifyWeb.Endpoint,
     ]
   ]
 
+config :oauth2, debug: true
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
