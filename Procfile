@@ -1,0 +1,1 @@
+web: PORT=4000 _build/prod/rel/colorify/bin/colorify start

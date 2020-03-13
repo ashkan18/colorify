@@ -4,7 +4,7 @@ config :colorify, :secret_key, System.fetch_env!("SECRET_KEY")
 
 config :colorify, ColorifyWeb.Endpoint,
   load_from_system_env: true,
-  http: [port: {:system, "PORT"}],
+  http: [port: System.get_env("SIGNING_SALT")],
   check_origin: false,
   server: true,
   root: ".",
