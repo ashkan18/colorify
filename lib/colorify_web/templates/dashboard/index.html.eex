@@ -1,6 +1,6 @@
 <section class="row">
   <article class="column">
-    <h2>Your Playlists</h2>
+    <h2><%= @user_id %> Playlists</h2>
     <div style="display: flex;flex-direction: row; flex-wrap: wrap; width: 800px; justify-content: space-between;">
       <%= for playlist <- @playlists do %>
         <a href= <%= "/playlists/" <> playlist["id"] %> >

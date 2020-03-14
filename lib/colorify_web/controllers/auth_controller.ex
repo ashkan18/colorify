@@ -13,7 +13,7 @@ defmodule ColorifyWeb.AuthController do
     conn
     |> put_flash(:info, "You have been logged out!")
     |> configure_session(drop: true)
-    |> redirect(to: "/dashboard")
+    |> redirect(to: "/")
   end
 
   @doc """
@@ -23,13 +23,15 @@ defmodule ColorifyWeb.AuthController do
   access protected resources on behalf of the user.
   """
   def callback(conn, %{"code" => code}) do
-    token_client = SpotifyAuth.get_token!(code: code)
-
-    # user = get_user!(provider, client)
-
-    conn
-    # |> put_session(:current_user, user)
-    |> put_session(:access_token, token_client.token.access_token)
-    |> redirect(to: "/dashboard")
+    with token_client <- SpotifyAuth.get_token!(code: code),
+         access_token <- token_client.token.access_token,
+         {:ok, user_response} <- access_token |> Spotify.client() |> Spotify.me() do
+      conn
+      |> put_session(:user_id, user_response.body["id"])
+      |> put_session(:access_token, access_token)
+      |> redirect(to: "/")
+    else
+      _ -> redirect(conn, to: "/auth")
+    end
   end
 end

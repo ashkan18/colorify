@@ -1,6 +1,10 @@
 defmodule Spotify do
   use Tesla
 
+  def me(client) do
+    Tesla.get(client, "v1/me")
+  end
+
   def user_playlists(client, user_id) do
     Tesla.get(client, "v1/users/" <> user_id <> "/playlists")
   end

@@ -21,7 +21,7 @@ defmodule ColorifyWeb.Router do
     delete "/logout", AuthController, :delete
 
     pipe_through :authenticated
-    resources "/dashboard", DashboardController
+    get "/", DashboardController, :index
     live "/playlists/:id", PlaylistLive
   end
 

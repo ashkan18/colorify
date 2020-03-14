@@ -46,8 +46,10 @@ defmodule ColorifyWeb.PlaylistLive do
   end
 
   def handle_event("select_color", %{"color" => selected_color}, socket) do
-    {:ok, selected_tracks } = socket.assigns.colors
+    {:ok, selected_tracks} =
+      socket.assigns.colors
       |> Map.fetch(selected_color)
+
     {:noreply, assign(socket, selected_tracks: selected_tracks["track_ids"])}
   end
 
