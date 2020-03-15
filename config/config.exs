@@ -18,8 +18,6 @@ config :colorify, ColorifyWeb.Endpoint,
   pubsub: [name: Colorify.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [signing_salt: System.get_env("SIGNING_SALT")]
 
-config :oauth2, debug: true
-
 config :colorify, :oauth,
   client_id: System.get_env("CLIENT_ID"),
   client_secret: System.get_env("CLIENT_SECRET"),
