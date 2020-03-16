@@ -7,8 +7,8 @@
 # General application configuration
 use Mix.Config
 
-config :colorify,
-  ecto_repos: [Colorify.Repo]
+# config :colorify,
+#   ecto_repos: [Colorify.Repo]
 
 # Configures the endpoint
 config :colorify, ColorifyWeb.Endpoint,
