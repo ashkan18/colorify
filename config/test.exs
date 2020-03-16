@@ -1,12 +1,12 @@
 use Mix.Config
 
-# Configure your database
-config :colorify, Colorify.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "colorify_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+# # Configure your database
+# config :colorify, Colorify.Repo,
+#   username: "postgres",
+#   password: "postgres",
+#   database: "colorify_test",
+#   hostname: "localhost",
+#   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
