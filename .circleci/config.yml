@@ -6,7 +6,7 @@ jobs:
   build:
     docker:
       # specify the version here
-      - image: circleci/elixir:1.4
+      - image: circleci/elixir:1.10.2-node-browsers-legacy
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -19,5 +19,4 @@ jobs:
 
       # specify any bash command here prefixed with `run: `
       - run: mix deps.get
-      - run: mix ecto.create
       - run: mix test

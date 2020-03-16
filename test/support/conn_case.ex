@@ -29,10 +29,10 @@ defmodule ColorifyWeb.ConnCase do
   end
 
   setup tags do
-    #:ok = Ecto.Adapters.SQL.Sandbox.checkout(Colorify.Repo)
+    # :ok = Ecto.Adapters.SQL.Sandbox.checkout(Colorify.Repo)
 
     unless tags[:async] do
-      #Ecto.Adapters.SQL.Sandbox.mode(Colorify.Repo, {:shared, self()})
+      # Ecto.Adapters.SQL.Sandbox.mode(Colorify.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
